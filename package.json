@@ -1,0 +1,27 @@
+{
+  "name": "forkify",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "index.html",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "11.25.0",
+      "onFail": "download"
+    }
+  },
+  "packageManager": "pnpm@11.25.0",
+  "type": "module",
+  "devDependencies": {
+    "@parcel/transformer-sass": "2.16.4",
+    "parcel": "^2.16.4",
+    "sass": "^1.103.1"
+  }
+}
