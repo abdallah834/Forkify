@@ -39,6 +39,8 @@ function decimalToFraction(num) {
 class RecipeView {
   #ParentEl = document.querySelector('.recipe');
   #data;
+  #errorMessage = `Recipe seems to be unavailable`;
+  #message = ``;
   render(data) {
     this.#data = data;
     const markup = this.#generateMarkup();
@@ -54,8 +56,36 @@ class RecipeView {
             <use href="${icons}#icon-loader"></use>
           </svg>
         </div>`;
-    this.#ParentEl.innerHTML = ``;
+    this.#clear();
     this.#ParentEl.insertAdjacentHTML('afterbegin', markup);
+  }
+  renderError(message = this.#errorMessage) {
+    const markup = `<div class="error">
+            <div>
+              <svg>
+                <use href="${icons}#icon-alert-triangle"></use>
+              </svg>
+            </div>
+            <p>${message}</p>
+          </div>`;
+    this.#clear();
+    this.#ParentEl.insertAdjacentHTML('afterbegin', markup);
+  }
+  renderMessage(message = this.#message) {
+    const markup = `<div class="message">
+            <div>
+              <svg>
+                <use href="${icons}#icon-check"></use>
+              </svg>
+            </div>
+            <p>${message}</p>
+          </div>`;
+    this.#clear();
+    this.#ParentEl.insertAdjacentHTML('afterbegin', markup);
+  }
+
+  addHandlerRender(handler) {
+    ['hashchange', 'load'].forEach(ev => window.addEventListener(ev, handler));
   }
   #generateMarkup() {
     return `    
