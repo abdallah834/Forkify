@@ -1,5 +1,5 @@
-@use "sass:color";
-@use "base";
+@use 'sass:color';
+@use 'base';
 
 .preview {
   &__link {
@@ -105,4 +105,5 @@
       fill: base.$color-primary;
     }
   }
+  margin-top: 5px;
 }

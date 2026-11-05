@@ -1,4 +1,6 @@
 import icons from 'url:../../img/icons.svg';
+import View from './view.js';
+
 function decimalToFraction(num) {
   // Handle integers
   if (Number.isInteger(num)) {
@@ -36,63 +38,20 @@ function decimalToFraction(num) {
   }
 }
 
-class RecipeView {
-  #ParentEl = document.querySelector('.recipe');
-  #data;
-  #errorMessage = `Recipe seems to be unavailable`;
-  #message = ``;
-  render(data) {
-    this.#data = data;
-    const markup = this.#generateMarkup();
-    this.#clear();
-    this.#ParentEl.insertAdjacentHTML('afterbegin', markup);
-  }
-  #clear() {
-    this.#ParentEl.innerHTML = ``;
-  }
-  renderSpinner() {
-    const markup = `<div class="spinner">
-          <svg>
-            <use href="${icons}#icon-loader"></use>
-          </svg>
-        </div>`;
-    this.#clear();
-    this.#ParentEl.insertAdjacentHTML('afterbegin', markup);
-  }
-  renderError(message = this.#errorMessage) {
-    const markup = `<div class="error">
-            <div>
-              <svg>
-                <use href="${icons}#icon-alert-triangle"></use>
-              </svg>
-            </div>
-            <p>${message}</p>
-          </div>`;
-    this.#clear();
-    this.#ParentEl.insertAdjacentHTML('afterbegin', markup);
-  }
-  renderMessage(message = this.#message) {
-    const markup = `<div class="message">
-            <div>
-              <svg>
-                <use href="${icons}#icon-check"></use>
-              </svg>
-            </div>
-            <p>${message}</p>
-          </div>`;
-    this.#clear();
-    this.#ParentEl.insertAdjacentHTML('afterbegin', markup);
-  }
+class RecipeView extends View {
+  _ParentEl = document.querySelector('.recipe');
+  _errorMessage = `Recipe seems to be unavailable`;
+  _message = ``;
 
   addHandlerRender(handler) {
     ['hashchange', 'load'].forEach(ev => window.addEventListener(ev, handler));
   }
-  #generateMarkup() {
+  _generateMarkup() {
     return `    
         <figure class="recipe__fig">
-          <img src=${this.#data.image} alt=${this.#data.title} class="recipe__img"/>
+          <img src=${this._data.image} alt=${this._data.title} class="recipe__img"/>
           <h1 class="recipe__title">
-            <span>${this.#data.title}</span>
+            <span>${this._data.title}</span>
           </h1>
         </figure>
 
@@ -101,14 +60,14 @@ class RecipeView {
             <svg class="recipe__info-icon">
               <use href="${icons}#icon-clock"></use>
             </svg>
-            <span class="recipe__info-data recipe__info-data--minutes">${this.#data.cookingTime}</span>
+            <span class="recipe__info-data recipe__info-data--minutes">${this._data.cookingTime}</span>
             <span class="recipe__info-text">minutes</span>
           </div>
           <div class="recipe__info">
             <svg class="recipe__info-icon">
               <use href="${icons}#icon-users"></use>
             </svg>
-            <span class="recipe__info-data recipe__info-data--people">${this.#data.servings}</span>
+            <span class="recipe__info-data recipe__info-data--people">${this._data.servings}</span>
             <span class="recipe__info-text">servings</span>
 
             <div class="recipe__info-buttons">
@@ -140,7 +99,7 @@ class RecipeView {
         <div class="recipe__ingredients">
           <h2 class="heading--2">Recipe ingredients</h2>
           <ul class="recipe__ingredient-list">
-          ${this.#data.ingredients.map(ingredient => this.#generateMarkupIngredient(ingredient)).join('')}
+          ${this._data.ingredients.map(ingredient => this._generateMarkupIngredient(ingredient)).join('')}
           </ul>
         </div>
 
@@ -148,12 +107,12 @@ class RecipeView {
           <h2 class="heading--2">How to cook it</h2>
           <p class="recipe__directions-text">
             This recipe was carefully designed and tested by
-            <span class="recipe__publisher">${this.#data.publisher}</span>. Please check out
+            <span class="recipe__publisher">${this._data.publisher}</span>. Please check out
             directions at their website.
           </p>
           <a
             class="btn--small recipe__btn"
-            href="${this.#data.sourceUrl}"
+            href="${this._data.sourceUrl}"
             target="_blank"
           >
             <span>Directions</span>
@@ -164,7 +123,7 @@ class RecipeView {
         </div>
        `;
   }
-  #generateMarkupIngredient(ingredient) {
+  _generateMarkupIngredient(ingredient) {
     return `<li class="recipe__ingredient">
               <svg class="recipe__icon">
                 <use href="src/img/icons#icon-check"></use>
