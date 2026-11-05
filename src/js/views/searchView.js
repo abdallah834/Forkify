@@ -9,7 +9,7 @@ class SearchView {
   }
   addHandlerSearch(handler) {
     this._parentEl.addEventListener('submit', e => {
-      e.preventDefault;
+      e.preventDefault();
       handler();
       this._clearSearchInput();
     });

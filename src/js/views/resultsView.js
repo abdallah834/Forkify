@@ -3,6 +3,8 @@ import icons from 'url:../../img/icons.svg';
 
 class ResultsView extends View {
   _ParentEl = document.querySelector('.results');
+  _DecrementBtn = document.querySelector('.pagination__btn--prev');
+  _IncrementBtn = document.querySelector('.pagination__btn--next');
   _errorMessage = `No matching results found`;
   _message = ``;
   _generateMarkup() {
@@ -23,6 +25,8 @@ class ResultsView extends View {
             </a>
           </li>`;
   }
+  _incrementPage() {}
+  _decrementPage() {}
 }
 export default new ResultsView();
 //
