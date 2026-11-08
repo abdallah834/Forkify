@@ -71,12 +71,12 @@ class RecipeView extends View {
             <span class="recipe__info-text">servings</span>
 
             <div class="recipe__info-buttons">
-              <button class="btn--tiny btn--increase-servings">
+              <button class="btn--tiny btn--update-servings" data-update-to="${this._data.servings - 1}">
                 <svg>
                   <use href="${icons}#icon-minus-circle"></use>
                 </svg>
               </button>
-              <button class="btn--tiny btn--increase-servings">
+              <button class="btn--tiny btn--update-servings" data-update-to="${this._data.servings + 1}">
                 <svg>
                   <use href="${icons}#icon-plus-circle"></use>
                 </svg>
@@ -128,12 +128,20 @@ class RecipeView extends View {
               <svg class="recipe__icon">
                 <use href="src/img/icons#icon-check"></use>
               </svg>
-              <div class="recipe__quantity">${decimalToFraction(ingredient.quantity) || ''}</div>
+              <div class="recipe__quantity">${isNaN(ingredient.quantity) ? 0 : decimalToFraction(ingredient.quantity) || 0}</div>
               <div class="recipe__description">
                 <span class="recipe__unit">${ingredient.unit}</span>
                 ${ingredient.description}
               </div>
             </li>`;
+  }
+  addUpdateServingsHandler(handler) {
+    this._ParentEl.addEventListener('click', e => {
+      const btn = e.target.closest('.btn--update-servings');
+      if (!btn) return;
+      const { updateTo } = btn.dataset;
+      handler(+updateTo === 0 ? 1 : +updateTo);
+    });
   }
 }
 

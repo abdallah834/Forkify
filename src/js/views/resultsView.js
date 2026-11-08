@@ -13,8 +13,9 @@ class ResultsView extends View {
       .join('');
   }
   _generateMarkupPreview(recipe) {
+    const currentRecipeId = window.location.hash.slice(1);
     return `<li class="preview">
-            <a class="preview__link" href="#${recipe.id}">
+            <a class="preview__link ${recipe.id === currentRecipeId && 'preview__link--active'}" href="#${recipe.id}">
               <figure class="preview__fig">
                 <img src="${recipe.image}" alt="${recipe.title}" />
               </figure>
@@ -25,8 +26,6 @@ class ResultsView extends View {
             </a>
           </li>`;
   }
-  _incrementPage() {}
-  _decrementPage() {}
 }
 export default new ResultsView();
 //
